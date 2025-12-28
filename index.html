@@ -5,18 +5,79 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>DKC</title>
   <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0;padding:24px}
-    .card{max-width:720px;width:100%;text-align:center}
-    img{max-width:240px;height:auto;margin:0 auto 20px;display:block}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:24px 0}
-    a.btn{display:block;padding:12px 14px;border:1px solid #ddd;border-radius:12px;text-decoration:none;color:#111}
+    :root{
+      --bg:#f6f6f6;
+      --card:#fff;
+      --text:#111;
+      --muted:#444;
+      --border:#ddd;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --wa:#25d366;
+      --wa2:#1ebe5b;
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      background:var(--bg);
+      color:var(--text);
+    }
+    .card{
+      max-width:760px;
+      width:100%;
+      text-align:center;
+      background:var(--card);
+      border-radius:20px;
+      padding:28px 24px;
+      box-shadow:var(--shadow);
+    }
+    img{
+      max-width:240px;
+      height:auto;
+      margin:0 auto 16px;
+      display:block;
+    }
+    h1{margin:0 0 6px;font-size:28px;letter-spacing:.4px}
+    p.lead{margin:0 0 18px;color:var(--muted)}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:12px;
+      margin:18px 0 10px;
+    }
+    a.btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 14px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      text-decoration:none;
+      color:var(--text);
+      background:#fff;
+    }
     a.btn:hover{border-color:#999}
-    .meta{opacity:.8;font-size:14px;margin-top:16px}
+    a.btn.primary{
+      background:var(--wa);
+      border-color:var(--wa);
+      color:#fff;
+      font-weight:600;
+    }
+    a.btn.primary:hover{background:var(--wa2);border-color:var(--wa2)}
+    .meta{opacity:.8;font-size:14px;margin-top:14px}
   </style>
 </head>
 <body>
-  <div class="card">
+  <main class="card">
     <img src="logo.png" alt="DKC Logo" />
+    <h1>DKC</h1>
+    <p class="lead">Sosyal medya hesaplarımız ve iletişim bağlantıları</p>
+
     <div class="grid">
       <a class="btn" href="https://facebook.com/dkcistanbul" target="_blank" rel="noopener">Facebook</a>
       <a class="btn" href="https://instagram.com/dkcistanbul" target="_blank" rel="noopener">Instagram</a>
@@ -28,9 +89,10 @@
       <a class="btn" href="https://youtube.com/channel/UCCwsgBYCJ2ipaBd8NAMSihQ" target="_blank" rel="noopener">Social YouTube</a>
       <a class="btn" href="https://instagram.com/denizkahvecidkc" target="_blank" rel="noopener">Deniz Kahveci Instagram</a>
       <a class="btn" href="https://youtube.com/channel/UC-T7Gq6bc0bYK-Z78d9Mcuw" target="_blank" rel="noopener">Deniz Kahveci YouTube</a>
-      <a class="btn" href="https://wa.me/903323510191" target="_blank" rel="noopener">WhatsApp ile sohbet başlat</a>
+      <a class="btn primary" href="https://wa.me/903323510191" target="_blank" rel="noopener">WhatsApp ile sohbet başlat</a>
     </div>
+
     <div class="meta">Çağlayan Mh, Muratpaşa / Antalya / Türkiye</div>
-  </div>
+  </main>
 </body>
 </html>
