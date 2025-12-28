@@ -37,6 +37,14 @@
       box-shadow:var(--shadow);
     }
 
+    /* Logo */
+    .logo{
+      width:min(260px, 70vw);
+      height:auto;
+      display:block;
+      margin:0 auto 16px;
+    }
+
     /* Head */
     h1{
       margin:0 0 8px;
@@ -112,7 +120,6 @@
       margin-top:16px;
     }
 
-    /* Small screen tweak */
     @media (max-width:420px){
       a.btn{min-width:100%}
       h1{font-size:20px}
@@ -121,10 +128,11 @@
 </head>
 <body>
   <main class="card">
+    <img class="logo" src="logo.png" alt="DKC Logo" />
+
     <h1>İLETİŞİM SANATLARI İCRA ERBABI™</h1>
     <p class="lead">İnternet sayfamız yapım aşamasında fakat size yardımcı olabilecekleri buraya bıraktık :)</p>
 
-    <!-- WhatsApp + Phone are separate from social links -->
     <section class="quick" aria-label="Hızlı iletişim">
       <a class="btn primary" href="https://wa.me/903323510191" target="_blank" rel="noopener">
         <span class="icon" aria-hidden="true"><img src="social/whatsapp.png" alt=""></span>
