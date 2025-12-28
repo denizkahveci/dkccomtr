@@ -28,7 +28,7 @@
       color:var(--text);
     }
     .card{
-      max-width:760px;
+      max-width:860px;
       width:100%;
       text-align:center;
       background:var(--card);
@@ -36,61 +36,158 @@
       padding:28px 24px;
       box-shadow:var(--shadow);
     }
-    img{
-      max-width:240px;
-      height:auto;
-      margin:0 auto 16px;
-      display:block;
+
+    /* Head */
+    h1{
+      margin:0 0 8px;
+      font-size:24px;
+      letter-spacing:.2px;
+      line-height:1.2;
     }
-    h1{margin:0 0 6px;font-size:28px;letter-spacing:.4px}
-    p.lead{margin:0 0 18px;color:var(--muted)}
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    p.lead{
+      margin:0 0 16px;
+      color:var(--muted);
+    }
+
+    /* Quick contact */
+    .quick{
+      display:flex;
+      flex-wrap:wrap;
       gap:12px;
-      margin:18px 0 10px;
+      justify-content:center;
+      margin:14px 0 18px;
+      padding:14px;
+      border:1px solid #eee;
+      border-radius:16px;
+      background:#fafafa;
     }
     a.btn{
-      display:flex;
+      display:inline-flex;
       align-items:center;
       justify-content:center;
+      gap:10px;
       padding:12px 14px;
       border:1px solid var(--border);
       border-radius:12px;
       text-decoration:none;
       color:var(--text);
       background:#fff;
+      min-width:220px;
     }
     a.btn:hover{border-color:#999}
+
     a.btn.primary{
       background:var(--wa);
       border-color:var(--wa);
       color:#fff;
-      font-weight:600;
+      font-weight:700;
     }
     a.btn.primary:hover{background:var(--wa2);border-color:var(--wa2)}
-    .meta{opacity:.8;font-size:14px;margin-top:14px}
+
+    /* Icon images from /social */
+    .icon{
+      width:20px;
+      height:20px;
+      display:inline-block;
+      flex:0 0 20px;
+    }
+    .icon img{
+      width:20px;
+      height:20px;
+      display:block;
+      object-fit:contain;
+    }
+
+    /* Social grid */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:12px;
+      margin:0;
+    }
+
+    .meta{
+      opacity:.8;
+      font-size:14px;
+      margin-top:16px;
+    }
+
+    /* Small screen tweak */
+    @media (max-width:420px){
+      a.btn{min-width:100%}
+      h1{font-size:20px}
+    }
   </style>
 </head>
 <body>
   <main class="card">
-    <img src="logo.png" alt="DKC Logo" />
-    <h1>DKC</h1>
-    <p class="lead">Sosyal medya hesaplarımız ve iletişim bağlantıları</p>
+    <h1>İLETİŞİM SANATLARI İCRA ERBABI™</h1>
+    <p class="lead">İnternet sayfamız yapım aşamasında fakat size yardımcı olabilecekleri buraya bıraktık :)</p>
 
-    <div class="grid">
-      <a class="btn" href="https://facebook.com/dkcistanbul" target="_blank" rel="noopener">Facebook</a>
-      <a class="btn" href="https://instagram.com/dkcistanbul" target="_blank" rel="noopener">Instagram</a>
-      <a class="btn" href="https://instagram.com/dkcworkshop" target="_blank" rel="noopener">Portföy</a>
-      <a class="btn" href="https://www.youtube.com/@dkcistanbul" target="_blank" rel="noopener">YouTube</a>
-      <a class="btn" href="https://twitter.com/dkcistanbul" target="_blank" rel="noopener">Twitter</a>
-      <a class="btn" href="https://linkedin.com/company/dkcistanbul" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn" href="https://facebook.com/dkcsocial" target="_blank" rel="noopener">Social Facebook</a>
-      <a class="btn" href="https://youtube.com/channel/UCCwsgBYCJ2ipaBd8NAMSihQ" target="_blank" rel="noopener">Social YouTube</a>
-      <a class="btn" href="https://instagram.com/denizkahvecidkc" target="_blank" rel="noopener">Deniz Kahveci Instagram</a>
-      <a class="btn" href="https://youtube.com/channel/UC-T7Gq6bc0bYK-Z78d9Mcuw" target="_blank" rel="noopener">Deniz Kahveci YouTube</a>
-      <a class="btn primary" href="https://wa.me/903323510191" target="_blank" rel="noopener">WhatsApp ile sohbet başlat</a>
-    </div>
+    <!-- WhatsApp + Phone are separate from social links -->
+    <section class="quick" aria-label="Hızlı iletişim">
+      <a class="btn primary" href="https://wa.me/903323510191" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"><img src="social/whatsapp.png" alt=""></span>
+        WhatsApp ile sohbet başlat
+      </a>
+
+      <a class="btn" href="tel:+903323510191">
+        <span class="icon" aria-hidden="true"><img src="social/discord.png" alt=""></span>
+        +90 332 351 01 91
+      </a>
+    </section>
+
+    <section class="grid" aria-label="Sosyal medya">
+      <a class="btn" href="https://facebook.com/dkcistanbul" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"><img src="social/facebook.png" alt=""></span>
+        Facebook
+      </a>
+
+      <a class="btn" href="https://instagram.com/dkcistanbul" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"><img src="social/instagram.png" alt=""></span>
+        Instagram
+      </a>
+
+      <a class="btn" href="https://instagram.com/dkcworkshop" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"><img src="social/instagram.png" alt=""></span>
+        Portföy
+      </a>
+
+      <a class="btn" href="https://www.youtube.com/@dkcistanbul" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"><img src="social/youtube.png" alt=""></span>
+        YouTube
+      </a>
+
+      <a class="btn" href="https://twitter.com/dkcistanbul" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"><img src="social/twitter.png" alt=""></span>
+        Twitter
+      </a>
+
+      <a class="btn" href="https://linkedin.com/company/dkcistanbul" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"><img src="social/linkedin.png" alt=""></span>
+        LinkedIn
+      </a>
+
+      <a class="btn" href="https://facebook.com/dkcsocial" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"><img src="social/facebook.png" alt=""></span>
+        Social Facebook
+      </a>
+
+      <a class="btn" href="https://youtube.com/channel/UCCwsgBYCJ2ipaBd8NAMSihQ" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"><img src="social/youtube.png" alt=""></span>
+        Social YouTube
+      </a>
+
+      <a class="btn" href="https://instagram.com/denizkahvecidkc" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"><img src="social/instagram.png" alt=""></span>
+        Deniz Kahveci Instagram
+      </a>
+
+      <a class="btn" href="https://youtube.com/channel/UC-T7Gq6bc0bYK-Z78d9Mcuw" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"><img src="social/youtube.png" alt=""></span>
+        Deniz Kahveci YouTube
+      </a>
+    </section>
 
     <div class="meta">Çağlayan Mh, Muratpaşa / Antalya / Türkiye</div>
   </main>
