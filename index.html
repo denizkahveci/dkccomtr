@@ -100,10 +100,11 @@
     .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
     .c-wa{grid-column:span 7}
     .c-tel{grid-column:span 5}
-    .c-ai,.c-social{grid-column:span 12}
+    .c-ai,.c-click{grid-column:span 6}
+    .c-social{grid-column:span 12}
     @media (max-width:767px){
       .bento{grid-template-columns:1fr;gap:12px}
-      .c-wa,.c-tel,.c-ai,.c-social{grid-column:auto}
+      .c-wa,.c-tel,.c-ai,.c-click,.c-social{grid-column:auto}
     }
 
     /* Cift cerceve: dis kabuk + ic cekirdek */
@@ -161,9 +162,10 @@
     .orb svg{width:15px;height:15px;display:block;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
     a.shell:hover .orb{transform:translate(3px,-3px) scale(1.06)}
 
-    /* DKC.ai karti */
+    /* Marka kartlari: DKC.ai + DKC Click */
     .ai-logo{height:38px;width:auto;display:block;flex:0 0 auto}
-    @media (max-width:480px){.ai-logo{height:30px}}
+    .click-logo{height:46px;width:auto;display:block;flex:0 0 auto}
+    @media (max-width:480px){.ai-logo{height:30px}.click-logo{height:38px}}
 
     /* Sosyal pilller */
     .social-core{flex-wrap:wrap;justify-content:center;gap:10px;padding:20px}
@@ -250,7 +252,20 @@
         </a>
       </div>
 
-      <div class="c-social" data-reveal style="--d:330ms">
+      <div class="c-click" data-reveal style="--d:330ms">
+        <a class="shell" href="https://dkc.click" target="_blank" rel="noopener" aria-label="DKC Click — dkc.click">
+          <div class="core">
+            <img class="click-logo" src="dkc-click.svg" alt="DKC Click" />
+            <span class="txt">
+              <span class="ttl">Yazılım ve Teknoloji Markamız</span>
+              <span class="sub">dkc.click</span>
+            </span>
+            <span class="orb" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+          </div>
+        </a>
+      </div>
+
+      <div class="c-social" data-reveal style="--d:410ms">
         <div class="shell" style="cursor:default">
           <div class="core social-core">
             <a class="pill" href="https://facebook.com/dkcistanbul" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-facebook"/></svg>Facebook</a>
@@ -268,7 +283,7 @@
       </div>
     </div>
 
-    <footer class="meta" data-reveal style="--d:410ms">
+    <footer class="meta" data-reveal style="--d:490ms">
       Çağlayan Mh, Muratpaşa / Antalya / Türkiye
       <span class="tm">DKC&reg; İletişim Sanatları</span>
     </footer>
