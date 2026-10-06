@@ -33,7 +33,21 @@
   const onay = $('[data-sybel-onay]'), baslat = $('[data-sybel-baslat]'), cerceve = $('[data-sybel-cerceve]');
   const sureMetni = $('[data-sybel-sure]'), uyari = $('[data-sybel-uyari]'), hataMetni = $('[data-sybel-hata-metni]');
 
-  let gorusme = null, sayac = null, oncekiOdak = null;
+  let gorusme = null, sayac = null, oncekiOdak = null, dailyCagri = null;
+
+  // Daily Prebuilt ham iframe'de ziyaretciyi "Enter your name" ekraninda bekletiyor
+  // (07.10.2026 teshisi: replika odaya katildi, ziyaretci hic giremedi). Bu yuzden
+  // katilim daily-js SDK ile, userName vererek yapiliyor; isim ekrani boylece atlanir.
+  function dailyYukle() {
+    if (window.DailyIframe) return Promise.resolve();
+    return new Promise((tamam, basarisiz) => {
+      const betik = document.createElement('script');
+      betik.src = '/daily.js';
+      betik.onload = () => (window.DailyIframe ? tamam() : basarisiz(new Error('DailyIframe yok')));
+      betik.onerror = () => basarisiz(new Error('daily.js yuklenemedi'));
+      document.head.append(betik);
+    });
+  }
 
   function durum(ad) {
     pencere.querySelectorAll('[data-sybel-durum]').forEach((bolum) => { bolum.hidden = bolum.dataset.sybelDurum !== ad; });
@@ -48,6 +62,7 @@
     if (baslat) baslat.disabled = Boolean(onay);
     pencere.hidden = false;
     document.documentElement.dataset.sybel = 'acik';
+    dailyYukle().catch(() => {}); // arka planda isit; hata burada onemsiz
     // Onay ekranı kaldırıldı (08.10.2026, Deniz'in kararı): görüşme doğrudan başlar;
     // bilgilendirme bağlanma ekranındaki gizlilik notuyla veriliyor.
     if (pencere.querySelector('[data-sybel-durum="onay"]')) durum('onay');
@@ -69,6 +84,7 @@
 
   function temizle() {
     clearInterval(sayac); sayac = null;
+    if (dailyCagri) { try { dailyCagri.destroy(); } catch { /* yoksay */ } dailyCagri = null; }
     cerceve?.replaceChildren();
     if (uyari) uyari.hidden = true;
   }
@@ -101,15 +117,27 @@
     }
     gorusme = yanit;
 
-    const iframe = document.createElement('iframe');
-    const adres = new URL(yanit.conversationUrl);
-    if (yanit.meetingToken) adres.searchParams.set('t', yanit.meetingToken);
-    iframe.src = adres.toString();
-    iframe.allow = 'camera; microphone; autoplay; fullscreen; display-capture';
-    iframe.title = 'Sybel ile görüntülü görüşme';
-    iframe.setAttribute('allowfullscreen', '');
-    cerceve?.replaceChildren(iframe);
-    durum('gorusme');
+    try {
+      await dailyYukle();
+      cerceve?.replaceChildren();
+      // Prebuilt gizli iframe'de userName'i yoksayip isim ekranina dusuyor;
+      // bu yuzden once gorusme bolumu gorunur kilinir, sonra katilinir.
+      durum('gorusme');
+      dailyCagri = window.DailyIframe.createFrame(cerceve, {
+        showLeaveButton: false,
+        showFullscreenButton: false,
+        iframeStyle: { width: '100%', height: '100%', border: '0' }
+      });
+      await dailyCagri.join({
+        url: yanit.conversationUrl,
+        token: yanit.meetingToken || undefined,
+        userName: 'Ziyaretçi',
+        startVideoOff: true
+      });
+    } catch {
+      void bitir({ sessiz: true });
+      return hata('genel');
+    }
     geriSay(yanit.maxDurationSeconds || 180);
   }
 
