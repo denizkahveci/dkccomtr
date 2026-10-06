@@ -74,7 +74,7 @@
     }
 
     /* Hero */
-    .hero{text-align:center;margin-bottom:clamp(22px,3.5vh,36px)}
+    .hero{text-align:center;margin-bottom:clamp(84px,11vh,100px)}
     .logo{
       width:min(200px,52vw);height:auto;display:block;margin:0 auto 30px;
       transition:transform .8s var(--ease);
@@ -199,15 +199,18 @@
     /* Sybel giris karti */
     button.shell{width:100%;text-align:inherit;font:inherit;color:inherit;cursor:pointer}
     .core{text-align:left}
-    .sybel-kart-core{position:relative;overflow:hidden}
+    .sybel-kart-core{
+      position:relative;
+      background:linear-gradient(160deg,#FFF8EE,#FAE8D3);
+    }
     .sybel-kart-core::after{
-      content:"";position:absolute;inset:0;pointer-events:none;
-      background:radial-gradient(420px 180px at 92% -30%, rgba(255,59,0,.18), transparent 70%);
+      content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+      background:radial-gradient(420px 180px at 92% -30%, rgba(255,59,0,.14), transparent 70%);
     }
     .canli{
       display:inline-flex;align-items:center;gap:7px;
       font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
-      color:rgba(244,237,226,.6);margin-bottom:5px;
+      color:#A3541B;margin-bottom:5px;
     }
     .canli::before{
       content:"";width:6px;height:6px;border-radius:999px;background:#FF3B00;
@@ -220,12 +223,12 @@
       100%{box-shadow:0 0 0 0 rgba(255,59,0,0)}
     }
     .sybel-yuz{
-      flex:0 0 84px;width:84px;height:84px;border-radius:999px;
+      flex:0 0 104px;width:104px;height:104px;border-radius:999px;
       object-fit:cover;display:block;
-      border:2px solid rgba(244,237,226,.3);
-      box-shadow:0 10px 26px -10px rgba(0,0,0,.5);
+      border:3px solid #fff;
+      box-shadow:0 14px 30px -12px rgba(34,27,21,.35);
     }
-    @media (max-width:480px){.sybel-yuz{flex-basis:64px;width:64px;height:64px}}
+    @media (max-width:480px){.sybel-yuz{flex-basis:76px;width:76px;height:76px}}
     .sybel-yuz-mini{
       width:64px;height:64px;border-radius:999px;object-fit:cover;
       display:block;margin:0 auto 14px;
@@ -234,11 +237,42 @@
     .sybel-ttl{font-family:"Fraunces",serif;font-weight:560;font-size:clamp(19px,2.8vw,24px);letter-spacing:-.01em}
     .mini-pil{
       display:inline-block;margin-left:10px;padding:3px 10px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);
-      font-size:11px;font-weight:600;color:rgba(244,237,226,.75);
+      border:1px solid rgba(34,27,21,.12);background:rgba(255,255,255,.6);
+      font-size:11px;font-weight:600;color:var(--muted);
       vertical-align:2px;letter-spacing:.02em;
     }
     @media (max-width:480px){.mini-pil{display:block;width:max-content;margin:8px 0 0}}
+
+    /* Konusma balonu */
+    .c-sybel{position:relative}
+    .balon{
+      position:absolute;bottom:calc(100% + 12px);left:16px;z-index:5;
+      max-width:min(380px,calc(100vw - 64px));
+      background:#fff;border:1px solid var(--hairline);
+      border-radius:16px;border-bottom-left-radius:4px;
+      padding:12px 16px;
+      font-size:13.5px;line-height:1.55;color:var(--ink);
+      box-shadow:0 18px 44px -18px rgba(34,27,21,.35);
+      transform-origin:14px calc(100% + 8px);
+      animation:balon-gel .55s var(--ease);
+    }
+    .balon::after{
+      content:"";position:absolute;top:calc(100% - 6px);left:40px;
+      width:12px;height:12px;background:#fff;
+      border-right:1px solid var(--hairline);border-bottom:1px solid var(--hairline);
+      transform:rotate(45deg);
+    }
+    @keyframes balon-gel{from{opacity:0;transform:scale(.85) translateY(8px)}to{opacity:1;transform:none}}
+    .balon .yaziyor::after{
+      content:"";display:inline-block;width:2px;height:1em;
+      background:var(--ink);margin-left:2px;vertical-align:-2px;
+      animation:balon-imlec 1s steps(1) infinite;
+    }
+    @keyframes balon-imlec{50%{opacity:0}}
+    @media (prefers-reduced-motion:reduce){
+      .balon{animation:none}
+      .balon .yaziyor::after{display:none}
+    }
 
     /* Sybel penceresi */
     html[data-sybel="acik"]{overflow:hidden}
@@ -390,8 +424,9 @@
 
     <div class="bento">
       <div class="c-sybel" data-reveal style="--d:90ms">
+        <div class="balon" id="sybel-balon" hidden aria-hidden="true"><span id="sybel-balon-metin"></span></div>
         <button class="shell" type="button" data-sybel-ac>
-          <span class="core dark sybel-kart-core">
+          <span class="core sybel-kart-core">
             <img class="sybel-yuz" src="sybel.jpg" alt="Sybel" />
             <span class="txt">
               <span class="canli">Görüntülü asistan</span>
@@ -531,6 +566,28 @@
       }
     }, { threshold: 0.12 });
     document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+    // Sybel konusma balonu: 2 sn sonra daktilo animasyonuyla
+    (() => {
+      const balon = document.getElementById('sybel-balon');
+      const metin = document.getElementById('sybel-balon-metin');
+      if (!balon || !metin) return;
+      const MESAJ = 'Merhaba, ben Sybel. Görüntülü konuşarak sorularınızı yanıtlayabilirim!';
+      const azalt = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      setTimeout(() => {
+        balon.hidden = false;
+        if (azalt) { metin.textContent = MESAJ; return; }
+        metin.classList.add('yaziyor');
+        let i = 0;
+        const sayac = setInterval(() => {
+          metin.textContent = MESAJ.slice(0, ++i);
+          if (i >= MESAJ.length) {
+            clearInterval(sayac);
+            setTimeout(() => metin.classList.remove('yaziyor'), 1500);
+          }
+        }, 30);
+      }, 2000);
+    })();
   </script>
   <script defer src="/sybel.js?v=b11ecfad199f"></script>
 </body>
