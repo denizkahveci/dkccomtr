@@ -48,7 +48,10 @@
     if (baslat) baslat.disabled = Boolean(onay);
     pencere.hidden = false;
     document.documentElement.dataset.sybel = 'acik';
-    durum('onay');
+    // Onay ekranı kaldırıldı (08.10.2026, Deniz'in kararı): görüşme doğrudan başlar;
+    // bilgilendirme bağlanma ekranındaki gizlilik notuyla veriliyor.
+    if (pencere.querySelector('[data-sybel-durum="onay"]')) durum('onay');
+    else void basla();
   }
 
   function kapat() {

@@ -287,17 +287,6 @@
     }
     .sybel-x:hover{transform:scale(1.07);border-color:rgba(34,27,21,.25)}
 
-    .sybel-onay-satir{
-      display:flex;gap:10px;align-items:flex-start;
-      padding:13px 14px;margin:0 0 14px;
-      border:1px solid var(--hairline);border-radius:14px;background:rgba(34,27,21,.03);
-      font-size:14px;font-weight:600;line-height:1.5;cursor:pointer;
-    }
-    .sybel-onay-satir input{
-      width:18px;height:18px;margin:1px 0 0;flex:0 0 18px;
-      accent-color:var(--espresso);cursor:pointer;
-    }
-
     .sybel-sira{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
     .s-btn{
       display:inline-flex;align-items:center;justify-content:center;gap:8px;
@@ -308,8 +297,6 @@
     }
     .s-btn:hover{transform:translateY(-2px);border-color:rgba(34,27,21,.25)}
     .s-btn:active{transform:scale(.97)}
-    .s-btn.koyu{background:linear-gradient(160deg,var(--espresso-2),var(--espresso));border-color:var(--espresso);color:var(--cream)}
-    .s-btn.koyu:disabled{opacity:.4;cursor:not-allowed;transform:none}
     .s-btn.yesil{background:var(--wa);border-color:var(--wa);color:#fff}
 
     .sybel-donuyor{
@@ -486,24 +473,11 @@
         <h2 id="sybel-baslik" class="gorunmez">Sybel ile görüntülü görüşme</h2>
         <button class="sybel-x" type="button" data-sybel-kapat aria-label="Kapat">&#10005;</button>
 
-        <section data-sybel-durum="onay" hidden>
-          <h3>Görüşmeden önce kısa bir not</h3>
-          <p>Görüşme Tavus altyapısıyla yapılır; sesiniz ve kameranızı açarsanız görüntünüz yurt dışındaki sunucularda işlenir. Görüntü ve ses kaydı alınmaz. Görüşmenin yazılı dökümü ve bırakırsanız iletişim bilgileriniz, yalnızca size dönebilmemiz için DKC tarafından saklanır.</p>
-          <p><a href="/gizlilik/" target="_blank" rel="noopener">Ayrıntılı bilgi: gizlilik sayfamız</a></p>
-          <label class="sybel-onay-satir">
-            <input type="checkbox" data-sybel-onay />
-            Okudum, görüşmeyi başlatmak istiyorum.
-          </label>
-          <p class="soluk">Tarayıcınız mikrofon izni isteyecek; kamera isteğe bağlı.</p>
-          <div class="sybel-sira">
-            <button class="s-btn koyu" type="button" data-sybel-baslat disabled>Görüşmeyi başlat</button>
-            <button class="s-btn" type="button" data-sybel-kapat>Vazgeç</button>
-          </div>
-        </section>
-
         <section data-sybel-durum="baglaniyor" hidden>
           <div class="sybel-donuyor" aria-hidden="true"></div>
           <p>Sybel'e bağlanıyorsunuz&hellip;</p>
+          <p class="soluk">Tarayıcınız mikrofon izni isteyecek; kamera isteğe bağlı.</p>
+          <p class="soluk">Görüşmeyi başlatarak sesinizin ve açarsanız görüntünüzün <a href="/gizlilik/" target="_blank" rel="noopener">gizlilik sayfamızdaki</a> koşullarla işlenmesini kabul etmiş olursunuz. Kayıt alınmaz.</p>
         </section>
 
         <section data-sybel-durum="gorusme" hidden>
@@ -545,6 +519,6 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
   </script>
-  <script defer src="/sybel.js?v=68e723782973"></script>
+  <script defer src="/sybel.js?v=b11ecfad199f"></script>
 </body>
 </html>
