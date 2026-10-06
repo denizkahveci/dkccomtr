@@ -74,7 +74,7 @@
     }
 
     /* Hero */
-    .hero{text-align:center;margin-bottom:clamp(84px,11vh,100px)}
+    .hero{text-align:center;margin-bottom:clamp(44px,5.5vh,60px)}
     .logo{
       width:min(200px,52vw);height:auto;display:block;margin:0 auto 30px;
       transition:transform .8s var(--ease);
@@ -263,6 +263,8 @@
       transform:rotate(45deg);
     }
     @keyframes balon-gel{from{opacity:0;transform:scale(.85) translateY(8px)}to{opacity:1;transform:none}}
+    .balon.gidiyor{animation:balon-git .45s var(--ease) forwards}
+    @keyframes balon-git{to{opacity:0;transform:scale(.9) translateY(8px)}}
     .balon .yaziyor::after{
       content:"";display:inline-block;width:2px;height:1em;
       background:var(--ink);margin-left:2px;vertical-align:-2px;
@@ -271,6 +273,7 @@
     @keyframes balon-imlec{50%{opacity:0}}
     @media (prefers-reduced-motion:reduce){
       .balon{animation:none}
+      .balon.gidiyor{animation:none;opacity:0}
       .balon .yaziyor::after{display:none}
     }
 
@@ -576,6 +579,10 @@
       const azalt = matchMedia('(prefers-reduced-motion: reduce)').matches;
       setTimeout(() => {
         balon.hidden = false;
+        setTimeout(() => {
+          balon.classList.add('gidiyor');
+          setTimeout(() => { balon.hidden = true; }, 500);
+        }, 9000);
         if (azalt) { metin.textContent = MESAJ; return; }
         metin.classList.add('yaziyor');
         let i = 0;
