@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>DKC</title>
   <meta name="description" content="DKC — İletişim Sanatları. WhatsApp, telefon ve sosyal medya bağlantıları." />
   <!-- Google tag (gtag.js) -->
@@ -107,17 +107,18 @@
 
     /* Bento */
     .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+    .c-sybel{grid-column:span 12}
     .c-wa{grid-column:span 7}
     .c-tel{grid-column:span 5}
     .c-ai,.c-click{grid-column:span 6}
     .c-social{grid-column:span 12}
     @media (max-width:767px){
       .bento{grid-template-columns:1fr;gap:12px}
-      .c-wa,.c-tel,.c-ai,.c-click,.c-social{grid-column:auto}
+      .c-sybel,.c-wa,.c-tel,.c-ai,.c-click,.c-social{grid-column:auto}
     }
 
     /* Cift cerceve: dis kabuk + ic cekirdek */
-    a.shell{
+    a.shell,button.shell{
       display:block;
       height:100%;
       background:var(--shell);
@@ -127,11 +128,11 @@
       text-decoration:none;color:inherit;
       transition:transform .6s var(--ease),box-shadow .6s var(--ease);
     }
-    a.shell:hover{
+    a.shell:hover,button.shell:hover{
       transform:translateY(-3px);
       box-shadow:0 30px 70px -30px rgba(34,27,21,.28);
     }
-    a.shell:active{transform:translateY(-1px) scale(.985)}
+    a.shell:active,button.shell:active{transform:translateY(-1px) scale(.985)}
     .core{
       background:var(--card);
       border-radius:20px;
@@ -170,7 +171,7 @@
     }
     .core.dark .orb{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
     .orb svg{width:15px;height:15px;display:block;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
-    a.shell:hover .orb{transform:translate(3px,-3px) scale(1.06)}
+    a.shell:hover .orb,button.shell:hover .orb{transform:translate(3px,-3px) scale(1.06)}
 
     /* Marka kartlari: DKC.ai + DKC Click */
     .ai-logo{height:38px;width:auto;display:block;flex:0 0 auto}
@@ -195,6 +196,170 @@
     a.pill:active{transform:scale(.97)}
     a.pill svg{width:16px;height:16px;display:block;fill:var(--fume)}
 
+    /* Sybel giris karti */
+    button.shell{width:100%;text-align:inherit;font:inherit;color:inherit;cursor:pointer}
+    .core{text-align:left}
+    .sybel-kart-core{position:relative;overflow:hidden}
+    .sybel-kart-core::after{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background:radial-gradient(420px 180px at 92% -30%, rgba(255,59,0,.18), transparent 70%);
+    }
+    .canli{
+      display:inline-flex;align-items:center;gap:7px;
+      font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+      color:rgba(244,237,226,.6);margin-bottom:5px;
+    }
+    .canli::before{
+      content:"";width:6px;height:6px;border-radius:999px;background:#FF3B00;
+      box-shadow:0 0 0 0 rgba(255,59,0,.5);
+      animation:canli-atis 2.4s var(--ease) infinite;
+    }
+    @keyframes canli-atis{
+      0%{box-shadow:0 0 0 0 rgba(255,59,0,.45)}
+      70%{box-shadow:0 0 0 9px rgba(255,59,0,0)}
+      100%{box-shadow:0 0 0 0 rgba(255,59,0,0)}
+    }
+    .sybel-ttl{font-family:"Fraunces",serif;font-weight:560;font-size:clamp(19px,2.8vw,24px);letter-spacing:-.01em}
+    .mini-pil{
+      display:inline-block;margin-left:10px;padding:3px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);
+      font-size:11px;font-weight:600;color:rgba(244,237,226,.75);
+      vertical-align:2px;letter-spacing:.02em;
+    }
+    @media (max-width:480px){.mini-pil{display:block;width:max-content;margin:8px 0 0}}
+
+    /* Sybel penceresi */
+    html[data-sybel="acik"]{overflow:hidden}
+    .sybel{
+      position:fixed;inset:0;z-index:60;
+      display:grid;place-items:center;
+      padding:16px;
+    }
+    .sybel[hidden]{display:none}
+    .sybel-ort{
+      position:absolute;inset:0;
+      background:rgba(24,19,15,.45);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      animation:sybel-sol .5s var(--ease);
+    }
+    .sybel-dis{
+      position:relative;
+      background:var(--shell);
+      border:1px solid var(--hairline);
+      border-radius:26px;padding:6px;
+      width:min(560px,100%);
+      box-shadow:0 40px 120px -40px rgba(24,19,15,.5);
+      animation:sybel-gel .6s var(--ease);
+    }
+    .sybel[data-durum="gorusme"] .sybel-dis{width:min(920px,100%)}
+    .sybel-ic{
+      background:var(--card);
+      border-radius:20px;
+      box-shadow:inset 0 1px 1px rgba(255,255,255,.7);
+      padding:clamp(22px,4vw,36px);
+      max-height:calc(100dvh - 44px);
+      overflow:auto;
+    }
+    @keyframes sybel-gel{from{opacity:0;transform:translateY(26px) scale(.97)}to{opacity:1;transform:none}}
+    @keyframes sybel-sol{from{opacity:0}to{opacity:1}}
+    @media (prefers-reduced-motion:reduce){
+      .sybel-ort,.sybel-dis{animation:none}
+      .canli::before{animation:none}
+    }
+
+    .sybel h3{
+      font-family:"Fraunces",serif;font-weight:560;
+      font-size:clamp(20px,3vw,26px);letter-spacing:-.01em;
+      margin:0 0 12px;
+    }
+    .sybel p{margin:0 0 14px;font-size:14.5px;line-height:1.7;color:var(--ink)}
+    .sybel p.soluk{color:var(--muted);font-size:13px}
+    .sybel a{color:inherit}
+
+    .sybel-x{
+      position:absolute;top:16px;right:16px;z-index:1;
+      width:34px;height:34px;border-radius:999px;
+      border:1px solid var(--hairline);background:var(--card);
+      display:grid;place-items:center;cursor:pointer;
+      font:inherit;color:var(--muted);font-size:16px;line-height:1;
+      transition:transform .5s var(--ease),border-color .5s var(--ease);
+    }
+    .sybel-x:hover{transform:scale(1.07);border-color:rgba(34,27,21,.25)}
+
+    .sybel-onay-satir{
+      display:flex;gap:10px;align-items:flex-start;
+      padding:13px 14px;margin:0 0 14px;
+      border:1px solid var(--hairline);border-radius:14px;background:rgba(34,27,21,.03);
+      font-size:14px;font-weight:600;line-height:1.5;cursor:pointer;
+    }
+    .sybel-onay-satir input{
+      width:18px;height:18px;margin:1px 0 0;flex:0 0 18px;
+      accent-color:var(--espresso);cursor:pointer;
+    }
+
+    .sybel-sira{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .s-btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:12px 22px;border-radius:999px;cursor:pointer;
+      font:inherit;font-size:14px;font-weight:600;text-decoration:none;
+      border:1px solid var(--hairline);background:var(--card);color:var(--ink);
+      transition:transform .5s var(--ease),border-color .5s var(--ease),opacity .5s var(--ease);
+    }
+    .s-btn:hover{transform:translateY(-2px);border-color:rgba(34,27,21,.25)}
+    .s-btn:active{transform:scale(.97)}
+    .s-btn.koyu{background:linear-gradient(160deg,var(--espresso-2),var(--espresso));border-color:var(--espresso);color:var(--cream)}
+    .s-btn.koyu:disabled{opacity:.4;cursor:not-allowed;transform:none}
+    .s-btn.yesil{background:var(--wa);border-color:var(--wa);color:#fff}
+
+    .sybel-donuyor{
+      width:34px;height:34px;margin:6px auto 16px;border-radius:999px;
+      border:2.5px solid var(--hairline);border-top-color:var(--espresso);
+      animation:sybel-don 1s linear infinite;
+    }
+    @keyframes sybel-don{to{transform:rotate(360deg)}}
+    @media (prefers-reduced-motion:reduce){.sybel-donuyor{animation:none;border-top-color:var(--hairline)}}
+    .sybel [data-sybel-durum="baglaniyor"]{text-align:center;padding:14px 0}
+
+    .sybel-cerceve{
+      aspect-ratio:16/9;min-width:0;
+      border-radius:14px;overflow:hidden;background:var(--espresso);
+    }
+    .sybel-cerceve iframe{width:100%;height:100%;border:0;display:block}
+    .sybel-alt{
+      display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+      margin-top:14px;
+    }
+    .sybel-sure{
+      font-variant-numeric:tabular-nums;font-weight:600;font-size:14px;
+      padding:7px 14px;border-radius:999px;border:1px solid var(--hairline);background:rgba(34,27,21,.03);
+    }
+    .sybel-uyari-metin{font-size:13px;color:#A33B00;font-weight:600}
+    .sybel-alt .s-btn{margin-left:auto}
+
+    /* Telefonda gorusme tam ekran */
+    @media (max-width:767px){
+      .sybel{padding:0}
+      .sybel-dis,.sybel[data-durum="gorusme"] .sybel-dis{
+        width:100%;height:100dvh;border-radius:0;padding:0;border:0;
+      }
+      .sybel-ic{
+        border-radius:0;height:100dvh;max-height:none;
+        display:flex;flex-direction:column;justify-content:center;
+        padding:calc(20px + env(safe-area-inset-top)) 16px calc(20px + env(safe-area-inset-bottom));
+      }
+      .sybel[data-durum="gorusme"] .sybel-ic{padding:calc(12px + env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom))}
+      .sybel [data-sybel-durum="gorusme"]:not([hidden]){display:flex;flex-direction:column;flex:1;min-height:0}
+      .sybel[data-durum="gorusme"] .sybel-cerceve{aspect-ratio:auto;flex:1;min-height:0}
+      .sybel[data-durum="gorusme"] .sybel-alt{margin-top:12px}
+      .sybel-x{top:calc(14px + env(safe-area-inset-top))}
+    }
+
+    .gorunmez{
+      position:absolute;width:1px;height:1px;overflow:hidden;
+      clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;
+    }
+
     .meta{
       text-align:center;margin-top:clamp(20px,3vh,32px);
       color:var(--muted);font-size:13px;letter-spacing:.02em;
@@ -214,6 +379,7 @@
     <symbol id="i-twitter" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></symbol>
     <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></symbol>
   </svg>
 
   <main class="wrap">
@@ -224,7 +390,21 @@
     </header>
 
     <div class="bento">
-      <div class="c-wa" data-reveal style="--d:90ms">
+      <div class="c-sybel" data-reveal style="--d:90ms">
+        <button class="shell" type="button" data-sybel-ac>
+          <span class="core dark sybel-kart-core">
+            <span class="badge soft" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)" aria-hidden="true"><svg fill="#F4EDE2"><use href="#i-video"/></svg></span>
+            <span class="txt">
+              <span class="canli">Görüntülü asistan</span>
+              <span class="ttl sybel-ttl">Sybel'le görüntülü konuşun<span class="mini-pil">En fazla 3 dakika</span></span>
+              <span class="sub">DKC'nin asistanı; sorularınızı sesli yanıtlıyor.</span>
+            </span>
+            <span class="orb" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+          </span>
+        </button>
+      </div>
+
+      <div class="c-wa" data-reveal style="--d:170ms">
         <a class="shell" href="https://wa.me/903323510191" target="_blank" rel="noopener">
           <div class="core dark">
             <span class="badge wa" aria-hidden="true"><svg fill="#fff"><use href="#i-whatsapp"/></svg></span>
@@ -237,7 +417,7 @@
         </a>
       </div>
 
-      <div class="c-tel" data-reveal style="--d:170ms">
+      <div class="c-tel" data-reveal style="--d:250ms">
         <a class="shell" href="tel:+903323510191">
           <div class="core">
             <span class="badge soft" aria-hidden="true"><svg fill="#5F564D"><use href="#i-phone"/></svg></span>
@@ -249,7 +429,7 @@
         </a>
       </div>
 
-      <div class="c-ai" data-reveal style="--d:250ms">
+      <div class="c-ai" data-reveal style="--d:330ms">
         <a class="shell" href="https://dkc.click" target="_blank" rel="noopener" aria-label="DKC.ai — dkc.click">
           <div class="core">
             <img class="ai-logo" src="dkc-ai.svg" alt="DKC.ai" />
@@ -262,7 +442,7 @@
         </a>
       </div>
 
-      <div class="c-click" data-reveal style="--d:330ms">
+      <div class="c-click" data-reveal style="--d:410ms">
         <a class="shell" href="https://dkc.click" target="_blank" rel="noopener" aria-label="DKC Click — dkc.click">
           <div class="core">
             <img class="click-logo" src="dkc-click.svg" alt="DKC Click" />
@@ -275,7 +455,7 @@
         </a>
       </div>
 
-      <div class="c-social" data-reveal style="--d:410ms">
+      <div class="c-social" data-reveal style="--d:490ms">
         <div class="shell" style="cursor:default">
           <div class="core social-core">
             <a class="pill" href="https://facebook.com/dkcistanbul" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-facebook"/></svg>Facebook</a>
@@ -293,11 +473,68 @@
       </div>
     </div>
 
-    <footer class="meta" data-reveal style="--d:490ms">
+    <footer class="meta" data-reveal style="--d:570ms">
       Çağlayan Mh, Muratpaşa / Antalya / Türkiye
       <span class="tm">DKC&reg; İletişim Sanatları</span>
     </footer>
   </main>
+
+  <div class="sybel" data-sybel-pencere hidden role="dialog" aria-modal="true" aria-labelledby="sybel-baslik">
+    <div class="sybel-ort" data-sybel-kapat></div>
+    <div class="sybel-dis">
+      <div class="sybel-ic">
+        <h2 id="sybel-baslik" class="gorunmez">Sybel ile görüntülü görüşme</h2>
+        <button class="sybel-x" type="button" data-sybel-kapat aria-label="Kapat">&#10005;</button>
+
+        <section data-sybel-durum="onay" hidden>
+          <h3>Görüşmeden önce kısa bir not</h3>
+          <p>Görüşme Tavus altyapısıyla yapılır; sesiniz ve kameranızı açarsanız görüntünüz yurt dışındaki sunucularda işlenir. Görüntü ve ses kaydı alınmaz. Görüşmenin yazılı dökümü ve bırakırsanız iletişim bilgileriniz, yalnızca size dönebilmemiz için DKC tarafından saklanır.</p>
+          <p><a href="/gizlilik/" target="_blank" rel="noopener">Ayrıntılı bilgi: gizlilik sayfamız</a></p>
+          <label class="sybel-onay-satir">
+            <input type="checkbox" data-sybel-onay />
+            Okudum, görüşmeyi başlatmak istiyorum.
+          </label>
+          <p class="soluk">Tarayıcınız mikrofon izni isteyecek; kamera isteğe bağlı.</p>
+          <div class="sybel-sira">
+            <button class="s-btn koyu" type="button" data-sybel-baslat disabled>Görüşmeyi başlat</button>
+            <button class="s-btn" type="button" data-sybel-kapat>Vazgeç</button>
+          </div>
+        </section>
+
+        <section data-sybel-durum="baglaniyor" hidden>
+          <div class="sybel-donuyor" aria-hidden="true"></div>
+          <p>Sybel'e bağlanıyorsunuz&hellip;</p>
+        </section>
+
+        <section data-sybel-durum="gorusme" hidden>
+          <div class="sybel-cerceve" data-sybel-cerceve></div>
+          <div class="sybel-alt">
+            <span class="sybel-sure" data-sybel-sure>3:00</span>
+            <span class="sybel-uyari-metin" data-sybel-uyari hidden>Görüşme birazdan sona erecek.</span>
+            <button class="s-btn" type="button" data-sybel-bitir>Görüşmeyi bitir</button>
+          </div>
+        </section>
+
+        <section data-sybel-durum="bitti" hidden>
+          <h3>Görüşme bitti, teşekkürler!</h3>
+          <p>Talebinizi bıraktıysanız ekibimiz en kısa sürede size dönecek.</p>
+          <div class="sybel-sira">
+            <a class="s-btn yesil" href="https://wa.me/903323510191" target="_blank" rel="noopener">WhatsApp'tan yazın</a>
+            <button class="s-btn" type="button" data-sybel-kapat>Kapat</button>
+          </div>
+        </section>
+
+        <section data-sybel-durum="hata" hidden>
+          <h3>Görüşme başlatılamadı</h3>
+          <p data-sybel-hata-metni></p>
+          <div class="sybel-sira">
+            <a class="s-btn yesil" href="https://wa.me/903323510191" target="_blank" rel="noopener">WhatsApp'tan yazın</a>
+            <button class="s-btn" type="button" data-sybel-kapat>Kapat</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
 
   <script>
     document.documentElement.classList.add('js');
@@ -308,5 +545,6 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
   </script>
+  <script defer src="/sybel.js?v=68e723782973"></script>
 </body>
 </html>
