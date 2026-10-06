@@ -219,6 +219,18 @@
       70%{box-shadow:0 0 0 9px rgba(255,59,0,0)}
       100%{box-shadow:0 0 0 0 rgba(255,59,0,0)}
     }
+    .sybel-yuz{
+      flex:0 0 84px;width:84px;height:84px;border-radius:999px;
+      object-fit:cover;display:block;
+      border:2px solid rgba(244,237,226,.3);
+      box-shadow:0 10px 26px -10px rgba(0,0,0,.5);
+    }
+    @media (max-width:480px){.sybel-yuz{flex-basis:64px;width:64px;height:64px}}
+    .sybel-yuz-mini{
+      width:64px;height:64px;border-radius:999px;object-fit:cover;
+      display:block;margin:0 auto 14px;
+      border:2px solid var(--hairline);
+    }
     .sybel-ttl{font-family:"Fraunces",serif;font-weight:560;font-size:clamp(19px,2.8vw,24px);letter-spacing:-.01em}
     .mini-pil{
       display:inline-block;margin-left:10px;padding:3px 10px;border-radius:999px;
@@ -380,7 +392,7 @@
       <div class="c-sybel" data-reveal style="--d:90ms">
         <button class="shell" type="button" data-sybel-ac>
           <span class="core dark sybel-kart-core">
-            <span class="badge soft" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)" aria-hidden="true"><svg fill="#F4EDE2"><use href="#i-video"/></svg></span>
+            <img class="sybel-yuz" src="sybel.jpg" alt="Sybel" />
             <span class="txt">
               <span class="canli">Görüntülü asistan</span>
               <span class="ttl sybel-ttl">Sybel'le görüntülü konuşun<span class="mini-pil">En fazla 3 dakika</span></span>
@@ -474,6 +486,7 @@
         <button class="sybel-x" type="button" data-sybel-kapat aria-label="Kapat">&#10005;</button>
 
         <section data-sybel-durum="baglaniyor" hidden>
+          <img class="sybel-yuz-mini" src="sybel.jpg" alt="" aria-hidden="true" />
           <div class="sybel-donuyor" aria-hidden="true"></div>
           <p>Sybel'e bağlanıyorsunuz&hellip;</p>
           <p class="soluk">Tarayıcınız mikrofon izni isteyecek; kamera isteğe bağlı.</p>
